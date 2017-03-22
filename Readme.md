@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Максим Корольков](https://up.htmlacademy.ru/javascript/9/user/40071).
-* Наставник: `Неизвестно`.
+* Наставник: [Катя Климович](https://htmlacademy.ru/profile/id84950).
 
 ---
 
