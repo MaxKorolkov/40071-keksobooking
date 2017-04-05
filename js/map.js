@@ -34,24 +34,34 @@ var offerData = {
   }
 }
 
+/* Функция выдающая случайное значение из массива и удаляющее его.
+  Используется для заполнения объявлений уникальными значениями
+  join используется для приведения значения к строке*/
+function getUniqueValues(array) {
+  return array.splice(randomInteger(0, array.length - 1), 1).join();
+}
+
+// функция для случайного заполнения свойства features в объявлении
 function getOfferFeatures() {
   var number = randomInteger(0, offerData.offer.features.length);
   var array = [];
-  for (var i = 0; i < number; i++) {
-    array[i] = offerData.offer.features.splice(randomInteger(0, offerData.offer.title.length - 1), 1).join();
+  var features = offerData.offer.features.slice();
+  if(number) {
+    for(var i = 0; i < number; i++) {
+      array[i] = getUniqueValues(features);
+    }
   }
   return array;
 }
 
 // создание объекта объявления
 function getRandomOffer() {
-  return {
+  var object = {
     author: {
-      avatar: offerData.author.avatar.splice(randomInteger(0, offerData.author.avatar.length - 1), 1).join()
+      avatar: getUniqueValues(offerData.author.avatar)
     },
     offer: {
-      title: offerData.offer.title.splice(randomInteger(0, offerData.offer.title.length - 1), 1).join(),
-      address: location.x + ', ' + location.y,
+      title: getUniqueValues(offerData.offer.title),
       price: randomInteger(1000, 1000000),
       type: randomArrayElement(offerData.offer.type),
       rooms: randomInteger(1, 5),
@@ -67,6 +77,19 @@ function getRandomOffer() {
       y: randomInteger(100, 500)
     }
   };
+  object.offer.address = object.location.x + ', ' + object.location.y;
+  return object;
 }
 
-console.log(getRandomOffer());
+// заполнение массива объявлений
+function getOffersArray(number) {
+  var array = [];
+  for (var i = 0; i < number; i++) {
+    array.push(getRandomOffer());
+  }
+  return array;
+}
+
+// объявление массива объявлений и заполнение через функцию с количеством эллементов;
+var offers = getOffersArray(8);
+
