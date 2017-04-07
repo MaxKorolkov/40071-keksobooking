@@ -22,17 +22,17 @@ var offerData = {
   },
   offer: {
     title: [
-      "Большая уютная квартира", "Маленькая неуютная квартира",
-      "Огромный прекрасный дворец", "Маленький ужасный дворец",
-      "Красивый гостевой домик", "Некрасивый негостеприимный домик",
-      "Уютное бунгало далеко от моря", "Неуютное бунгало по колено в воде"
+      'Большая уютная квартира', 'Маленькая неуютная квартира',
+      'Огромный прекрасный дворец', 'Маленький ужасный дворец',
+      'Красивый гостевой домик', 'Некрасивый негостеприимный домик',
+      'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'
     ],
     type: ['flat', 'house', 'bungalo'],
     checkin: ['12:00', '13:00', '14:00'],
     checkout: ['12:00', '13:00', '14:00'],
-    features: ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
+    features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner']
   }
-}
+};
 
 /* Функция выдающая случайное значение из массива и удаляющее его.
  Используется для заполнения объявлений уникальными значениями
@@ -93,15 +93,15 @@ function getOffersArray(number) {
 // объявление массива объявлений и заполнение через функцию с количеством эллементов;
 var offers = getOffersArray(8);
 
-//переменные для блока меток
+// переменные для блока меток
 var pin = document.querySelector('.pin');
 var pinMap = document.querySelector('.tokyo__pin-map');
 
 // генерация метки
 function renderPin(offer) {
   var pinElement = pin.cloneNode(true);
-  pinElement.style.left = offer.location.x + 'px';
-  pinElement.style.top = offer.location.y + 'px';
+  pinElement.style.left = offer.location.x - 37 + 'px';
+  pinElement.style.top = offer.location.y - 92 + 'px';
   pinElement.querySelector('img').src = offer.author.avatar;
   return pinElement;
 }
@@ -119,21 +119,19 @@ function switchType(type) {
   switch (type) {
     case 'flat':
       return 'Квартира';
-      break;
     case 'bungalo':
       return 'Бунгало';
-      break;
     case 'house':
       return 'Дом';
-      break;
+    default: return '';
   }
 }
 
 // Функция для генерации элементов удобств
 function lodgeFeatures(array) {
   var codeFeatures = '';
-  for (var i = 0; i < array.length; i++) {
-    codeFeatures += '<span class="feature__image feature__image--'+ array[i] +'"></span>';
+  for (i = 0; i < array.length; i++) {
+    codeFeatures += '<span class="feature__image feature__image--' + array[i] + '"></span>';
   }
   return codeFeatures;
 }
@@ -158,7 +156,7 @@ var dialog = document.querySelector('.dialog__panel');
 dialog.innerHTML = '';
 dialog.appendChild(renderLodgeContent(offers[0]));
 
-//замена аватара
+// замена аватара
 document.querySelector('.dialog__title').firstElementChild.src = offers[0].author.avatar;
 
 
