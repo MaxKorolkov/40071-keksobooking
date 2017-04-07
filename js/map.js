@@ -35,8 +35,8 @@ var offerData = {
 }
 
 /* Функция выдающая случайное значение из массива и удаляющее его.
-  Используется для заполнения объявлений уникальными значениями
-  join используется для приведения значения к строке*/
+ Используется для заполнения объявлений уникальными значениями
+ join используется для приведения значения к строке*/
 function getUniqueValues(array) {
   return array.splice(randomInteger(0, array.length - 1), 1).join();
 }
@@ -46,8 +46,8 @@ function getOfferFeatures() {
   var number = randomInteger(0, offerData.offer.features.length);
   var array = [];
   var features = offerData.offer.features.slice();
-  if(number) {
-    for(var i = 0; i < number; i++) {
+  if (number) {
+    for (var i = 0; i < number; i++) {
       array[i] = getUniqueValues(features);
     }
   }
@@ -92,4 +92,73 @@ function getOffersArray(number) {
 
 // объявление массива объявлений и заполнение через функцию с количеством эллементов;
 var offers = getOffersArray(8);
+
+//переменные для блока меток
+var pin = document.querySelector('.pin');
+var pinMap = document.querySelector('.tokyo__pin-map');
+
+// генерация метки
+function renderPin(offer) {
+  var pinElement = pin.cloneNode(true);
+  pinElement.style.left = offer.location.x + 'px';
+  pinElement.style.top = offer.location.y + 'px';
+  pinElement.querySelector('img').src = offer.author.avatar;
+  return pinElement;
+}
+
+// создание и добавление меток чероз DocumentFragment
+var pinFragment = document.createDocumentFragment();
+for (var i = 0; i < offers.length; i++) {
+  pinFragment.appendChild(renderPin(offers[i]));
+}
+pinMap.appendChild(pinFragment);
+
+
+// Функция для возвращения локализованного типа квартиры
+function switchType(type) {
+  switch (type) {
+    case 'flat':
+      return 'Квартира';
+      break;
+    case 'bungalo':
+      return 'Бунгало';
+      break;
+    case 'house':
+      return 'Дом';
+      break;
+  }
+}
+
+// Функция для генерации элементов удобств
+function lodgeFeatures(array) {
+  var codeFeatures = '';
+  for (var i = 0; i < array.length; i++) {
+    codeFeatures += '<span class="feature__image feature__image--'+ array[i] +'"></span>';
+  }
+  return codeFeatures;
+}
+
+// рендер данных для подстановки в объявление
+function renderLodgeContent(object) {
+  var lodge = document.querySelector('#lodge-template').content.cloneNode(true);
+  lodge.querySelector('.lodge__title').textContent = object.offer.title;
+  lodge.querySelector('.lodge__address').textContent = object.offer.address;
+  lodge.querySelector('.lodge__type').textContent = switchType(object.offer.type);
+  lodge.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + object.offer.guests
+  + ' гостей в ' + object.offer.rooms + ' комнатах';
+  lodge.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + object.offer.checkin
+    + ', выезд до ' + object.offer.checkout;
+  lodge.querySelector('.lodge__features').innerHTML = lodgeFeatures(object.offer.features);
+  lodge.querySelector('.lodge__description').textContent = object.offer.description;
+  return lodge;
+}
+
+// Замена HTML в диалоге на данные первого объекта offers
+var dialog = document.querySelector('.dialog__panel');
+dialog.innerHTML = '';
+dialog.appendChild(renderLodgeContent(offers[0]));
+
+//замена аватара
+document.querySelector('.dialog__title').firstElementChild.src = offers[0].author.avatar;
+
 
