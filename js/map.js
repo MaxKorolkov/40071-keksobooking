@@ -97,19 +97,41 @@ var offers = getOffersArray(8);
 var pin = document.querySelector('.pin');
 var pinMap = document.querySelector('.tokyo__pin-map');
 
-// генерация метки
-function renderPin(offer) {
+// функция удаления активной метки
+function removePinActive() {
+  var pinActive = document.querySelector('.pin--active');
+  if (pinActive) {
+    pinActive.classList.remove('pin--active');
+  }
+}
+
+// функция генерации активной метки
+function addPinActive(pin, number) {
+  removePinActive();
+  pin.classList.add('pin--active');
+  showDialog(number);
+}
+
+// генерация метки и обработка клика и нажатия Enter при фокусе
+function renderPin(offer, numberOffer) {
   var pinElement = pin.cloneNode(true);
   pinElement.style.left = offer.location.x - 37 + 'px';
   pinElement.style.top = offer.location.y - 92 + 'px';
   pinElement.querySelector('img').src = offer.author.avatar;
+  pinElement.addEventListener('click', function () {
+    addPinActive(pinElement, numberOffer);
+  });
+  pinElement.addEventListener('keydown', function () {
+    if (event.keyCode === 13) {
+      addPinActive(pinElement, numberOffer);
+    }
+  });
   return pinElement;
 }
-
 // создание и добавление меток чероз DocumentFragment
 var pinFragment = document.createDocumentFragment();
 for (var i = 0; i < offers.length; i++) {
-  pinFragment.appendChild(renderPin(offers[i]));
+  pinFragment.appendChild(renderPin(offers[i], i));
 }
 pinMap.appendChild(pinFragment);
 
@@ -151,12 +173,35 @@ function renderLodgeContent(object) {
   return lodge;
 }
 
-// Замена HTML в диалоге на данные первого объекта offers
-var dialog = document.querySelector('.dialog__panel');
-dialog.innerHTML = '';
-dialog.appendChild(renderLodgeContent(offers[0]));
+// Переменные для работы с диалогом
+var dialog = document.querySelector('.dialog');
+var dialogTitle = dialog.querySelector('.dialog__title');
+var dialogPanel = dialog.querySelector('.dialog__panel');
+var dialogClose = dialog.querySelector('.dialog__close');
 
-// замена аватара
-document.querySelector('.dialog__title').firstElementChild.src = offers[0].author.avatar;
+// функция для скрытия диалога
+function removeDialog() {
+  dialog.classList.add('hidden');
+  removePinActive();
+}
 
+// Функция показа диалога и обработчики событий
+function showDialog(number) {
+  dialogTitle.firstElementChild.src = offers[number].author.avatar;
+  dialogPanel.innerHTML = '';
+  dialogPanel.appendChild(renderLodgeContent(offers[number]));
+  dialog.classList.remove('hidden');
+
+  dialogClose.addEventListener('click', removeDialog);
+  document.addEventListener('keydown', function () {
+    if (event.keyCode === 27) {
+      removeDialog()
+    }
+  });
+  dialogClose.addEventListener('keydown', function () {
+    if (event.keyCode === 13) {
+      removeDialog();
+    }
+  });
+}
 
