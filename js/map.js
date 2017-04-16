@@ -106,9 +106,9 @@ function removePinActive() {
 }
 
 // функция генерации активной метки
-function addPinActive(pin, number) {
+function addPinActive(pinElement, number) {
   removePinActive();
-  pin.classList.add('pin--active');
+  pinElement.classList.add('pin--active');
   showDialog(number);
 }
 
@@ -195,7 +195,7 @@ function showDialog(number) {
   dialogClose.addEventListener('click', removeDialog);
   document.addEventListener('keydown', function () {
     if (event.keyCode === 27) {
-      removeDialog()
+      removeDialog();
     }
   });
   dialogClose.addEventListener('keydown', function () {
