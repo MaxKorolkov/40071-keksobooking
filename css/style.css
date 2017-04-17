@@ -39,6 +39,10 @@ button[type=submit] {
     border: 4px solid #ffaa99;
 }
 
+.hidden {
+  display: none;
+}
+
 button[type=submit]:hover {
     border-color: #ff6d51;
 }
