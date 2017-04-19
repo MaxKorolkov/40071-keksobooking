@@ -146,7 +146,8 @@ function switchType(type) {
       return 'Бунгало';
     case 'house':
       return 'Дом';
-    default: return '';
+    default:
+      return '';
   }
 }
 
@@ -166,7 +167,7 @@ function renderLodgeContent(object) {
   lodge.querySelector('.lodge__address').textContent = object.offer.address;
   lodge.querySelector('.lodge__type').textContent = switchType(object.offer.type);
   lodge.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + object.offer.guests
-  + ' гостей в ' + object.offer.rooms + ' комнатах';
+    + ' гостей в ' + object.offer.rooms + ' комнатах';
   lodge.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + object.offer.checkin
     + ', выезд до ' + object.offer.checkout;
   lodge.querySelector('.lodge__features').innerHTML = lodgeFeatures(object.offer.features);
@@ -205,4 +206,73 @@ function showDialog(offer) {
     }
   });
 }
+
+// Переменные для формы
+var addOfferForm = document.forms.addOfferForm;
+var offerArrival = addOfferForm.querySelector('#time');
+var offerDeparture = addOfferForm.querySelector('#timeout');
+var offerPrice = addOfferForm.querySelector('#price');
+var offerPropertyType = addOfferForm.querySelector('#type');
+var offerRoomNumber = addOfferForm.querySelector('#room_number');
+var offerCapacity = addOfferForm.querySelector('#capacity');
+var offerSubmit = addOfferForm.querySelector('.form__submit');
+
+// обработчики для добавления зависимости между временем заезда и выезда
+offerArrival.addEventListener('change', function (event) {
+  offerDeparture.selectedIndex = event.target.value;
+});
+
+offerDeparture.addEventListener('change', function (event) {
+  offerArrival.selectedIndex = event.target.value;
+});
+
+// обработчик типа жилья и зависимости минимальной цены
+offerPropertyType.addEventListener('change', function (event) {
+  console.log(event.target.value);
+  switch (event.target.value) {
+    case '0':
+      offerPrice.setAttribute('min', 1000);
+      break;
+    case '1':
+      offerPrice.setAttribute('min', 0);
+      break;
+    case '2':
+      offerPrice.setAttribute('min', 10000);
+      break;
+    default:
+      offerPrice.setAttribute('min', 0);
+      break;
+  }
+});
+
+// Обработчки выбора количества комнат и зависимость количества гостей
+offerRoomNumber.addEventListener('change', function (event) {
+  if (parseInt(event.target.value)) {
+    offerCapacity.selectedIndex = 0;
+  }
+  else {
+    offerCapacity.selectedIndex = 1;
+  }
+});
+
+// Обработчик выбора количества гостей и зависимость количества комнат
+offerCapacity.addEventListener('change', function (event) {
+  console.log(addOfferForm.elements);
+  if (parseInt(event.target.value)) {
+    offerRoomNumber.selectedIndex = 0;
+  }
+  else {
+    offerRoomNumber.selectedIndex = 1;
+  }
+});
+
+// Обработка валидации формы при нажатии на кнопку Опубликовать
+offerSubmit.addEventListener('click', function () {
+  for(i = 0; i < addOfferForm.elements.length; i++) {
+    addOfferForm.elements[i].style.borderColor = "#d9d9d3";
+    if(!addOfferForm.elements[i].checkValidity()) {
+      addOfferForm.elements[i].style.borderColor = "red";
+    }
+  }
+});
 
