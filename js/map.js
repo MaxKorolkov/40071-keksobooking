@@ -228,7 +228,6 @@ offerDeparture.addEventListener('change', function (event) {
 
 // обработчик типа жилья и зависимости минимальной цены
 offerPropertyType.addEventListener('change', function (event) {
-  console.log(event.target.value);
   switch (event.target.value) {
     case '0':
       offerPrice.setAttribute('min', 1000);
@@ -247,31 +246,28 @@ offerPropertyType.addEventListener('change', function (event) {
 
 // Обработчки выбора количества комнат и зависимость количества гостей
 offerRoomNumber.addEventListener('change', function (event) {
-  if (parseInt(event.target.value)) {
+  if (parseInt(event.target.value, 10)) {
     offerCapacity.selectedIndex = 0;
-  }
-  else {
+  } else {
     offerCapacity.selectedIndex = 1;
   }
 });
 
 // Обработчик выбора количества гостей и зависимость количества комнат
 offerCapacity.addEventListener('change', function (event) {
-  console.log(addOfferForm.elements);
-  if (parseInt(event.target.value)) {
+  if (parseInt(event.target.value, 10)) {
     offerRoomNumber.selectedIndex = 0;
-  }
-  else {
+  } else {
     offerRoomNumber.selectedIndex = 1;
   }
 });
 
 // Обработка валидации формы при нажатии на кнопку Опубликовать
 offerSubmit.addEventListener('click', function () {
-  for(i = 0; i < addOfferForm.elements.length; i++) {
-    addOfferForm.elements[i].style.borderColor = "#d9d9d3";
-    if(!addOfferForm.elements[i].checkValidity()) {
-      addOfferForm.elements[i].style.borderColor = "red";
+  for (i = 0; i < addOfferForm.elements.length; i++) {
+    addOfferForm.elements[i].style.borderColor = '#d9d9d3';
+    if (!addOfferForm.elements[i].checkValidity()) {
+      addOfferForm.elements[i].style.borderColor = 'red';
     }
   }
 });
