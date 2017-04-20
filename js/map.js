@@ -218,24 +218,24 @@ var offerCapacity = addOfferForm.querySelector('#capacity');
 var offerSubmit = addOfferForm.querySelector('.form__submit');
 
 // обработчики для добавления зависимости между временем заезда и выезда
-offerArrival.addEventListener('change', function (event) {
-  offerDeparture.selectedIndex = event.target.value;
+offerArrival.addEventListener('change', function () {
+  offerDeparture.selectedIndex = offerArrival.selectedIndex;
 });
 
-offerDeparture.addEventListener('change', function (event) {
-  offerArrival.selectedIndex = event.target.value;
+offerDeparture.addEventListener('change', function () {
+  offerArrival.selectedIndex = offerDeparture.selectedIndex;
 });
 
 // обработчик типа жилья и зависимости минимальной цены
 offerPropertyType.addEventListener('change', function (event) {
   switch (event.target.value) {
-    case '0':
+    case 'flat':
       offerPrice.setAttribute('min', 1000);
       break;
-    case '1':
+    case 'shack':
       offerPrice.setAttribute('min', 0);
       break;
-    case '2':
+    case 'palace':
       offerPrice.setAttribute('min', 10000);
       break;
     default:
@@ -246,19 +246,32 @@ offerPropertyType.addEventListener('change', function (event) {
 
 // Обработчки выбора количества комнат и зависимость количества гостей
 offerRoomNumber.addEventListener('change', function (event) {
-  if (parseInt(event.target.value, 10)) {
-    offerCapacity.selectedIndex = 0;
-  } else {
-    offerCapacity.selectedIndex = 1;
+  switch (event.target.value) {
+    case 'one-room':
+      offerCapacity.selectedIndex = 1;
+      break;
+    case 'two-room':
+    case 'hundred-rooms':
+      offerCapacity.selectedIndex = 0;
+      break;
+    default:
+      offerCapacity.selectedIndex = 0;
+      break;
   }
 });
 
 // Обработчик выбора количества гостей и зависимость количества комнат
 offerCapacity.addEventListener('change', function (event) {
-  if (parseInt(event.target.value, 10)) {
-    offerRoomNumber.selectedIndex = 0;
-  } else {
-    offerRoomNumber.selectedIndex = 1;
+  switch (event.target.value) {
+    case 'third-guest':
+      offerRoomNumber.selectedIndex = 1;
+      break;
+    case 'not-guest':
+      offerRoomNumber.selectedIndex = 0;
+      break;
+    default:
+      offerRoomNumber.selectedIndex = 1;
+      break;
   }
 });
 
