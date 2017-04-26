@@ -17,7 +17,7 @@ window.renderDialog = (function () {
   };
 
 // Функция для генерации элементов удобств
-  var lodgeFeatures = function(array) {
+  var lodgeFeatures = function (array) {
     var codeFeatures = '';
     for (var i = 0; i < array.length; i++) {
       codeFeatures += '<span class="feature__image feature__image--' + array[i] + '"></span>';
@@ -26,7 +26,7 @@ window.renderDialog = (function () {
   };
 
 // рендер данных для подстановки в объявление
-  var renderLodgeContent = function(object) {
+  var renderLodgeContent = function (object) {
     var lodge = document.querySelector('#lodge-template').content.cloneNode(true);
     lodge.querySelector('.lodge__title').textContent = object.offer.title;
     lodge.querySelector('.lodge__address').textContent = object.offer.address;
@@ -47,13 +47,13 @@ window.renderDialog = (function () {
   var dialogClose = dialog.querySelector('.dialog__close');
 
 // функция для скрытия диалога
-  var removeDialog = function() {
+  var removeDialog = function () {
     dialog.classList.add('hidden');
-    pinAction.removePinActive();
+    window.pinAction.removePinActive();
   };
 
 // Функция показа диалога и обработчики событий
-  var showDialog = function(offer) {
+  var showDialog = function (offer) {
     dialogTitle.firstElementChild.src = offer.author.avatar;
     dialogPanel.innerHTML = '';
     dialogPanel.appendChild(renderLodgeContent(offer));
@@ -74,7 +74,7 @@ window.renderDialog = (function () {
 
   return {
     showDialog: showDialog
-  }
+  };
 })();
 
 

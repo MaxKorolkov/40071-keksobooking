@@ -11,7 +11,7 @@ window.offers = (function () {
   };
 
 // Возвращение случайного элемента из массива
-  var randomArrayElement = function(array) {
+  var randomArrayElement = function (array) {
     return array[randomInteger(0, array.length - 1)];
   };
 
@@ -45,7 +45,7 @@ window.offers = (function () {
   };
 
 // функция для случайного заполнения свойства features в объявлении
-  var getOfferFeatures = function() {
+  var getOfferFeatures = function () {
     var number = randomInteger(0, offerData.offer.features.length);
     var array = [];
     var features = offerData.offer.features.slice();
@@ -58,7 +58,7 @@ window.offers = (function () {
   };
 
   // создание объекта объявления
-  var getRandomOffer = function() {
+  var getRandomOffer = function () {
     var object = {
       author: {
         avatar: getUniqueValues(offerData.author.avatar)
@@ -85,7 +85,7 @@ window.offers = (function () {
   };
 
   // заполнение массива объявлений
-  var getOffersArray = function(number) {
+  var getOffersArray = function (number) {
     var array = [];
     for (var i = 0; i < number; i++) {
       array.push(getRandomOffer());
@@ -96,19 +96,3 @@ window.offers = (function () {
   return getOffersArray(8);
 
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-// объявление массива объявлений и заполнение через функцию с количеством эллементов;
-var offers = getOffersArray(8);
-*/
