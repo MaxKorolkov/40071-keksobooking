@@ -73,7 +73,8 @@ window.renderDialog = (function () {
   };
 
   return {
-    showDialog: showDialog
+    showDialog: showDialog,
+    renderLodge: renderLodgeContent
   };
 })();
 

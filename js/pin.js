@@ -20,6 +20,7 @@ window.pinAction = (function () {
   var renderPin = function (offer) {
     var pin = document.querySelector('.pin');
     var pinElement = pin.cloneNode(true);
+    pinElement.classList.remove('pin__main');
     pinElement.style.left = offer.location.x - 37 + 'px';
     pinElement.style.top = offer.location.y - 92 + 'px';
     pinElement.querySelector('img').src = offer.author.avatar;
