@@ -26,12 +26,12 @@ window.pinAction = (function () {
     pinElement.querySelector('img').src = offer.author.avatar;
     pinElement.addEventListener('click', function () {
       addPinActive(pinElement);
-      window.renderDialog.showDialog(offer);
+      window.showCard.showDialog(offer);
     });
     pinElement.addEventListener('keydown', function (event) {
       if (event.keyCode === 13) {
         addPinActive(pinElement);
-        window.renderDialog.showDialog(offer);
+        window.showCard.showDialog(offer);
       }
     });
     return pinElement;
