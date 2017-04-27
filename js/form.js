@@ -2,6 +2,7 @@
 
 // обработчики полей ничего не возвращают, но вызываются в IIFE
 (function () {
+
   // Переменные для формы
   var addOfferForm = document.forms.addOfferForm;
   var offerArrival = addOfferForm.querySelector('#time');
@@ -12,65 +13,56 @@
   var offerCapacity = addOfferForm.querySelector('#capacity');
   var offerSubmit = addOfferForm.querySelector('.form__submit');
 
-// обработчики для добавления зависимости между временем заезда и выезда
-  offerArrival.addEventListener('change', function () {
-    offerDeparture.selectedIndex = offerArrival.selectedIndex;
-  });
+  // функция для синхронизации элементов в форме
+  var syncValues = function (element, value) {
+    element.value = value;
+  };
+  window.synchronizeFields(offerArrival, offerDeparture, syncValues);
 
-  offerDeparture.addEventListener('change', function () {
-    offerArrival.selectedIndex = offerDeparture.selectedIndex;
-  });
 
-// обработчик типа жилья и зависимости минимальной цены
-  offerPropertyType.addEventListener('change', function (event) {
-    switch (event.target.value) {
+  // синхронизация типа жилья и зависимости минимальной цены
+  var syncTypeRoomPrice = function (element, value) {
+    switch (value) {
       case 'flat':
-        offerPrice.setAttribute('min', 1000);
+        element.setAttribute('min', 1000);
         break;
       case 'shack':
-        offerPrice.setAttribute('min', 0);
+        element.setAttribute('min', 0);
         break;
       case 'palace':
-        offerPrice.setAttribute('min', 10000);
+        element.setAttribute('min', 10000);
         break;
       default:
         offerPrice.setAttribute('min', 0);
         break;
     }
-  });
+  };
+  window.synchronizeFields(offerPropertyType, offerPrice, syncTypeRoomPrice);
 
-// Обработчки выбора количества комнат и зависимость количества гостей
-  offerRoomNumber.addEventListener('change', function (event) {
-    switch (event.target.value) {
+  // синхронизация количества комнат и количества гостей
+  var syncPropertyRoom = function (element, value) {
+    switch (value) {
       case 'one-room':
-        offerCapacity.selectedIndex = 1;
+        element.selectedIndex = 1;
         break;
       case 'two-room':
       case 'hundred-rooms':
-        offerCapacity.selectedIndex = 0;
+        element.selectedIndex = 0;
         break;
-      default:
-        offerCapacity.selectedIndex = 0;
-        break;
-    }
-  });
-
-// Обработчик выбора количества гостей и зависимость количества комнат
-  offerCapacity.addEventListener('change', function (event) {
-    switch (event.target.value) {
       case 'third-guest':
-        offerRoomNumber.selectedIndex = 1;
+        element.selectedIndex = 1;
         break;
       case 'not-guest':
-        offerRoomNumber.selectedIndex = 0;
+        element.selectedIndex = 0;
         break;
       default:
-        offerRoomNumber.selectedIndex = 1;
+        element.selectedIndex = 0;
         break;
     }
-  });
+  };
+  window.synchronizeFields(offerRoomNumber, offerCapacity, syncPropertyRoom);
 
-// Обработка валидации формы при нажатии на кнопку Опубликовать
+// Обработка валидации формы при нажатии на кнопку опубликовать
   offerSubmit.addEventListener('click', function () {
     for (var i = 0; i < addOfferForm.elements.length; i++) {
       addOfferForm.elements[i].style.borderColor = '#d9d9d3';

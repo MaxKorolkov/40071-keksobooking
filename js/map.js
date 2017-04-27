@@ -13,9 +13,11 @@
   }
   pinMap.appendChild(pinFragment);
 
+  // переменные для работы с перемещением метки
   var pinMain = document.querySelector('.pin__main');
   var inputAddress = document.querySelector('#address');
 
+  // обработчик перемещения метки
   pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var startCoords = {
@@ -37,9 +39,7 @@
 
       pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
       pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
-
       inputAddress.value = 'x: ' + (pinMain.offsetTop - shift.y + 37) + ', y: ' + (pinMain.offsetLeft - shift.x + 95);
-
     };
 
     var onMouseUp = function (upEvt) {
