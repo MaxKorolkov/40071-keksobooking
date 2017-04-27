@@ -17,50 +17,32 @@
   var syncValues = function (element, value) {
     element.value = value;
   };
-  window.synchronizeFields(offerArrival, offerDeparture, syncValues);
 
+  // функция для синхронизации минимального значенияч
+  var syncValueWithMin = function (element, value) {
+    element.min = value;
+  };
+
+  // синхронизация времени заезда и выезда
+  offerArrival.addEventListener('change', function () {
+    window.synchronizeFields(offerArrival, offerDeparture, ['12', '13', '14'], ['12', '13', '14'], syncValues);
+  });
+  offerDeparture.addEventListener('change', function () {
+    window.synchronizeFields(offerDeparture, offerArrival, ['12', '13', '14'], ['12', '13', '14'], syncValues);
+  });
 
   // синхронизация типа жилья и зависимости минимальной цены
-  var syncTypeRoomPrice = function (element, value) {
-    switch (value) {
-      case 'flat':
-        element.setAttribute('min', 1000);
-        break;
-      case 'shack':
-        element.setAttribute('min', 0);
-        break;
-      case 'palace':
-        element.setAttribute('min', 10000);
-        break;
-      default:
-        offerPrice.setAttribute('min', 0);
-        break;
-    }
-  };
-  window.synchronizeFields(offerPropertyType, offerPrice, syncTypeRoomPrice);
+  offerPropertyType.addEventListener('change', function () {
+    window.synchronizeFields(offerPropertyType, offerPrice, ['flat', 'shack', 'palace'], [1000, 0, 10000], syncValueWithMin);
+  });
 
   // синхронизация количества комнат и количества гостей
-  var syncPropertyRoom = function (element, value) {
-    switch (value) {
-      case 'one-room':
-        element.selectedIndex = 1;
-        break;
-      case 'two-room':
-      case 'hundred-rooms':
-        element.selectedIndex = 0;
-        break;
-      case 'third-guest':
-        element.selectedIndex = 1;
-        break;
-      case 'not-guest':
-        element.selectedIndex = 0;
-        break;
-      default:
-        element.selectedIndex = 0;
-        break;
-    }
-  };
-  window.synchronizeFields(offerRoomNumber, offerCapacity, syncPropertyRoom);
+  offerRoomNumber.addEventListener('change', function () {
+    window.synchronizeFields(offerRoomNumber, offerCapacity, ['one-room', 'two-rooms', 'hundred-rooms'], ['not-guest', 'third-guest', 'third-guest'], syncValues);
+  });
+  offerCapacity.addEventListener('change', function () {
+    window.synchronizeFields(offerCapacity, offerRoomNumber, ['third-guest', 'not-guest'], ['two-rooms', 'one-room'], syncValues);
+  });
 
 // Обработка валидации формы при нажатии на кнопку опубликовать
   offerSubmit.addEventListener('click', function () {
