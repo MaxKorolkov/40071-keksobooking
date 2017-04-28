@@ -2,8 +2,7 @@
 
 (function () {
   var successHandler = function (offers) {
-    window.offers = offers;
-    window.getOffer();
+    window.renderPinOffer(offers);
   };
 
   var errorHandler = function (errorMessage) {
