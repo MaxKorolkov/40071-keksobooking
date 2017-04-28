@@ -8,7 +8,7 @@
   var filterHouseFeatures = document.querySelectorAll('input[name=feature]');
 
   window.filterOffer = function (data) {
-    console.log('filter work');
+
     data = data.filter(function (element) {
       if (filterType.value !== 'any') {
         return element.offer.type === filterType.value;
@@ -19,6 +19,8 @@
 
     data = data.filter(function (element) {
       switch (filterPrice.value) {
+        case 'any':
+          return true;
         case 'middle':
           return (element.offer.price >= 10000) && (element.offer.price <= 50000);
         case 'low':
@@ -32,7 +34,7 @@
 
     data = data.filter(function (element) {
       if (filterRoomNumber.value !== 'any') {
-        return element.offer.rooms === filterRoomNumber.value;
+        return element.offer.rooms === +filterRoomNumber.value;
       } else {
         return data;
       }
@@ -40,7 +42,7 @@
 
     data = data.filter(function (element) {
       if (filterGuestNumber.value !== 'any') {
-        return element.offer.guests === filterGuestNumber.value;
+        return element.offer.guests === +filterGuestNumber.value;
       } else {
         return data;
       }
@@ -54,7 +56,7 @@
       }
     });
 
-    var oldAllPins = document.querySelector('.pin');
+    var oldAllPins = document.querySelectorAll('.pin:not(.pin__main)');
     oldAllPins.forEach(function (pinItem) {
       pinItem.remove();
     });
@@ -62,7 +64,11 @@
   };
 
   var addListenerFilter = function (filter, data) {
-    filter.addEventListener('change', window.filterOffer(data));
+    filter.addEventListener('change', function () {
+      window.debounce(function () {
+        window.filterOffer(data);
+      });
+    });
   };
 
   window.addEventFilters = function (data) {
