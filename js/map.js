@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.getOffer = function () {
 
   // переменные для блока меток
   var pinMap = document.querySelector('.tokyo__pin-map');
@@ -52,4 +52,4 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
-})();
+};

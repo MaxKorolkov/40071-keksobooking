@@ -7,6 +7,26 @@ body {
     font-family: Roboto, Arial, sans-serif;
 
     color: #353535;
+
+  position: relative;
+}
+
+
+.error-message {
+  z-index: 10;
+  position: fixed;
+  top: calc(50% - 100px);
+  left: calc(50% - 150px);
+  box-shadow: 5px 5px 0 0 #0d6168;
+  background: #33acb5;
+  border-radius: 10px;
+  font-size: 22px;
+  width: 300px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
 }
 
 h1 {
@@ -42,6 +62,8 @@ button[type=submit] {
 .hidden {
   display: none;
 }
+
+
 
 button[type=submit]:hover {
     border-color: #ff6d51;
