@@ -22,7 +22,8 @@
           <option value="bungalo">Сарай</option>
         </select></label>
         <label><select name="housing_price" id="housing_price" class="tokyo__filter">
-          <option value="middle" selected>10000 - 50000&#x20bd;</option>
+          <option value="any" selected>Любая цена</option>
+          <option value="middle">10000 - 50000&#x20bd;</option>
           <option value="low">до 10000&#x20bd;</option>
           <option value="high">от 50000&#x20bd;</option>
         </select></label>
@@ -285,6 +286,8 @@
 </template>
 
 <script src="js/load.js"></script>
+<script src="js/debounce.js"></script>
+<script src="js/filter.js"></script>
 <script src="js/data.js"></script>
 <script src="js/card.js"></script>
 <script src="js/show-card.js"></script>

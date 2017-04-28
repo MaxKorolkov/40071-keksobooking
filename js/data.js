@@ -3,6 +3,7 @@
 (function () {
   var successHandler = function (offers) {
     window.renderPinOffer(offers);
+    window.addEventFilters(offers);
   };
 
   var errorHandler = function (errorMessage) {
