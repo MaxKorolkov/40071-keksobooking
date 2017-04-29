@@ -1,5 +1,6 @@
 'use strict';
 
+// Глобальный объект для клонирования и создания меток, а также для drag and Drag And Drop главной метки
 window.renderPinOffer = function (offers) {
 
   // переменные для блока меток
@@ -19,10 +20,13 @@ window.renderPinOffer = function (offers) {
   // обработчик перемещения метки
   pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
+
     var startCoords = {
       x: evt.clientX,
       y: evt.clientY
     };
+
+    // обработка движения мыши
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
@@ -36,11 +40,16 @@ window.renderPinOffer = function (offers) {
         y: moveEvt.clientY
       };
 
+      // Константы отступов для правильного указания положения метки
+      var OFFSET_Y = 37;
+      var OFFSET_X = 92;
+
       pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
       pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
-      inputAddress.value = 'x: ' + (pinMain.offsetTop - shift.y + 37) + ', y: ' + (pinMain.offsetLeft - shift.x + 95);
+      inputAddress.value = 'x: ' + (pinMain.offsetTop - shift.y + OFFSET_Y) + ', y: ' + (pinMain.offsetLeft - shift.x + OFFSET_X);
     };
 
+    // обработка отпуска кнопки и удаление обработчиков
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 

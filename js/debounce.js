@@ -1,13 +1,13 @@
 'use strict';
-
+// Модуль для устранения эффекта дрожания при переключении каких-либо событий
 (function () {
-  var DEBOUNCE_INTERVAL = 300; // ms
+  var DEBOUNCE_INTERVAL = 300;
 
   var lastTimeout;
-  window.debounce = function (fun) {
-    if (lastTimeout) {
+  window.debounce = function (callback) {
+    if (lastTimeout !== null) {
       window.clearTimeout(lastTimeout);
     }
-    lastTimeout = window.setTimeout(fun, DEBOUNCE_INTERVAL);
+    lastTimeout = window.setTimeout(callback, DEBOUNCE_INTERVAL);
   };
 })();

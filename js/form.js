@@ -1,6 +1,6 @@
 'use strict';
 
-// обработчики полей ничего не возвращают, но вызываются в IIFE
+// Глобальный объект для работы с формой создаваемого проекта
 (function () {
 
   // Переменные для формы
@@ -44,7 +44,7 @@
     window.synchronizeFields(offerCapacity, offerRoomNumber, ['third-guest', 'not-guest'], ['two-rooms', 'one-room'], syncValues);
   });
 
-// Обработка валидации формы при нажатии на кнопку опубликовать
+  // Обработка валидации формы при нажатии на кнопку опубликовать
   offerSubmit.addEventListener('click', function () {
     for (var i = 0; i < addOfferForm.elements.length; i++) {
       addOfferForm.elements[i].style.borderColor = '#d9d9d3';

@@ -1,6 +1,7 @@
 'use strict';
 
-window.showCard = (function () {
+// Глобальный объект для показа карточки объявления
+window.showDialog = (function () {
 
   // Переменные для работы с диалогом
   var dialog = document.querySelector('.dialog');
@@ -8,33 +9,37 @@ window.showCard = (function () {
   var dialogPanel = dialog.querySelector('.dialog__panel');
   var dialogClose = dialog.querySelector('.dialog__close');
 
-// функция для скрытия диалога
+  // Функция для скрытия диалога
   var removeDialog = function () {
     dialog.classList.add('hidden');
     window.pinAction.removePinActive();
   };
 
-// Функция показа диалога и обработчики событий
-  var showDialog = function (offer) {
+  // Функция показа диалога и обработчики событий
+  var showDialogCard = function (offer) {
     dialogTitle.firstElementChild.src = offer.author.avatar;
     dialogPanel.innerHTML = '';
     dialogPanel.appendChild(window.renderDialog.renderLodgeContent(offer));
     dialog.classList.remove('hidden');
     dialogClose.addEventListener('click', removeDialog);
 
+    var ESC_KEY_CODE = 27;
+    var ENTER_KEY_CODE = 13;
+
     document.addEventListener('keydown', function (event) {
-      if (event.keyCode === 27) {
+      if (event.keyCode === ESC_KEY_CODE) {
         removeDialog();
       }
     });
+
     dialogClose.addEventListener('keydown', function (event) {
-      if (event.keyCode === 13) {
+      if (event.keyCode === ENTER_KEY_CODE) {
         removeDialog();
       }
     });
   };
 
   return {
-    showDialog: showDialog
+    showDialogCard: showDialogCard
   };
 })();
