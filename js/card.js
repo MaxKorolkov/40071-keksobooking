@@ -1,6 +1,6 @@
 'use strict';
 
-// глобальный объект для создания диалога
+// Глобальный объект для создания и отрисовки диалога диалога
 window.renderDialog = (function () {
   // Функция для возвращения локализованного типа квартиры
   var switchType = function (type) {
@@ -16,7 +16,7 @@ window.renderDialog = (function () {
     }
   };
 
-// Функция для генерации элементов удобств
+  // Функция для генерации элементов удобств
   var lodgeFeatures = function (array) {
     var codeFeatures = '';
     for (var i = 0; i < array.length; i++) {
@@ -25,7 +25,7 @@ window.renderDialog = (function () {
     return codeFeatures;
   };
 
-// рендер данных для подстановки в объявление
+  // Рендер данных для подстановки в объявление
   var renderLodgeContent = function (object) {
     var lodge = document.querySelector('#lodge-template').content.cloneNode(true);
     lodge.querySelector('.lodge__title').textContent = object.offer.title;
@@ -42,10 +42,6 @@ window.renderDialog = (function () {
 
   return {
     renderLodgeContent: renderLodgeContent
-    /*    dialog: dialog,
-     dialogTitle: dialogTitle,
-     dialogPanel: dialogPanel,
-     dialogClose: dialogClose*/
   };
 })();
 

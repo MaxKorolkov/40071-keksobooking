@@ -1,5 +1,6 @@
 'use strict';
 
+// Модуль для зазгрузки данных с сервера
 (function () {
   window.load = function (URL, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
@@ -12,14 +13,19 @@
         onError('Неизвестный статус ' + xhr.status + ' ' + xhr.statusText);
       }
     });
+
     xhr.addEventListener('error', function () {
       onError('Произошла ошибка соединения');
     });
+
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполнится за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 10000;
+    // Таймаут для запроса
+    var URL_TIMEOUT = 10000;
+
+    xhr.timeout = URL_TIMEOUT;
     xhr.open('GET', URL);
     xhr.send();
   };
