@@ -70,8 +70,7 @@
 
   // Функция для добавления обработчика вызова фильра и применение debounce функции для устранения эффекта дрожания
   var addListenerFilter = function (filter, data) {
-    filter.addEventListener('change', function (event) {
-      event.preventDefault();
+    filter.addEventListener('change', function () {
       window.debounce(function () {
         window.filterOffer(data);
       });
