@@ -1,7 +1,10 @@
 'use strict';
 
-// модуль - IIFE функция для зазрузки данных по сети и дальнейшей обработки.
+// Модуль - IIFE функция для зазрузки данных по сети и дальнейшей обработки.
 (function () {
+  // Адрес для загрузки данных
+  var URL = 'https://intensive-javascript-server-kjgvxfepjl.now.sh/keksobooking/data';
+
   // Функция возвращения случайного числа
   var randomInteger = function (min, max) {
     var rand = min + Math.random() * (max + 1 - min);
@@ -28,7 +31,6 @@
   var successHandler = function (offers) {
     window.renderPinOffer(getThreeRandomElements(offers));
     window.addEventFilters(offers);
-
   };
 
   // Функция для обработки отрицательного ответа сервера
@@ -39,6 +41,5 @@
     document.body.insertAdjacentElement('afterbegin', error);
   };
 
-  var URL = 'https://intensive-javascript-server-kjgvxfepjl.now.sh/keksobooking/data';
   window.load(URL, successHandler, errorHandler);
 })();

@@ -13,17 +13,17 @@
   var offerCapacity = addOfferForm.querySelector('#capacity');
   var offerSubmit = addOfferForm.querySelector('.form__submit');
 
-  // функция для синхронизации элементов в форме
+  // Функция для синхронизации элементов в форме
   var syncValues = function (element, value) {
     element.value = value;
   };
 
-  // функция для синхронизации минимального значенияч
+  // Функция для синхронизации минимального значенияч
   var syncValueWithMin = function (element, value) {
     element.min = value;
   };
 
-  // синхронизация времени заезда и выезда
+  // Синхронизация времени заезда и выезда
   offerArrival.addEventListener('change', function () {
     window.synchronizeFields(offerArrival, offerDeparture, ['12', '13', '14'], ['12', '13', '14'], syncValues);
   });
@@ -31,12 +31,12 @@
     window.synchronizeFields(offerDeparture, offerArrival, ['12', '13', '14'], ['12', '13', '14'], syncValues);
   });
 
-  // синхронизация типа жилья и зависимости минимальной цены
+  // Синхронизация типа жилья и зависимости минимальной цены
   offerPropertyType.addEventListener('change', function () {
     window.synchronizeFields(offerPropertyType, offerPrice, ['flat', 'shack', 'palace'], [1000, 0, 10000], syncValueWithMin);
   });
 
-  // синхронизация количества комнат и количества гостей
+  // Синхронизация количества комнат и количества гостей
   offerRoomNumber.addEventListener('change', function () {
     window.synchronizeFields(offerRoomNumber, offerCapacity, ['one-room', 'two-rooms', 'hundred-rooms'], ['not-guest', 'third-guest', 'third-guest'], syncValues);
   });
