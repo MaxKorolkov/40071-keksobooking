@@ -7,27 +7,29 @@ window.pinAction = (function () {
   var OFFSET_PIN_Y = 75;
   var ESC_KEY_CODE = 27;
 
-  // Шаблон метки
+  // Переменные
   var pin = document.querySelector('.pin__main');
+  var pinMainClass = 'pin__main';
+  var pinActiveClass = 'pin--active';
 
   // Функция удаления активной метки
   var removePinActive = function () {
-    var pinActive = document.querySelector('.pin--active');
+    var pinActive = document.querySelector('.' + pinActiveClass);
     if (pinActive !== null) {
-      pinActive.classList.remove('pin--active');
+      pinActive.classList.remove(pinActiveClass);
     }
   };
 
   // Функция генерации активной метки
   var addPinActive = function (pinElement) {
     removePinActive();
-    pinElement.classList.add('pin--active');
+    pinElement.classList.add(pinActiveClass);
   };
 
   // Генерация метки и обработка клика и нажатия Enter при фокусе
   var renderPin = function (offer) {
     var pinElement = pin.cloneNode(true);
-    pinElement.classList.remove('pin__main');
+    pinElement.classList.remove(pinMainClass);
     pinElement.style.left = offer.location.x - OFFSET_PIN_X + 'px';
     pinElement.style.top = offer.location.y - OFFSET_PIN_Y + 'px';
     pinElement.querySelector('img').src = offer.author.avatar;
